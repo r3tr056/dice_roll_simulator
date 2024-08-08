@@ -1,76 +1,22 @@
+import tkinter as tk
 import random
-import time
 
-# ASCII Art for each side of the dice
-DICE_ART = {
-    1: (
-        "┌─────────┐",
-        "│         │",
-        "│    ●    │",
-        "│         │",
-        "└─────────┘"
-    ),
-    2: (
-        "┌─────────┐",
-        "│  ●      │",
-        "│         │",
-        "│      ●  │",
-        "└─────────┘"
-    ),
-    3: (
-        "┌─────────┐",
-        "│  ●      │",
-        "│    ●    │",
-        "│      ●  │",
-        "└─────────┘"
-    ),
-    4: (
-        "┌─────────┐",
-        "│  ●   ●  │",
-        "│         │",
-        "│  ●   ●  │",
-        "└─────────┘"
-    ),
-    5: (
-        "┌─────────┐",
-        "│  ●   ●  │",
-        "│    ●    │",
-        "│  ●   ●  │",
-        "└─────────┘"
-    ),
-    6: (
-        "┌─────────┐",
-        "│  ●   ●  │",
-        "│  ●   ●  │",
-        "│  ●   ●  │",
-        "└─────────┘"
-    ),
-}
+# Function to simulate rolling the dice
+def roll_dice():
+    result = random.randint(1, 6)
+    result_label.config(text=f'Result: {result}')
 
-def roll_dice(num_dice):
-    return [random.randint(1, 6) for _ in range(num_dice)]
+# Create the main window
+root = tk.Tk()
+root.title("Dice Simulator")
 
-def display_dice(dice):
-    dice_faces = [DICE_ART[die] for die in dice]
-    for line in zip(*dice_faces):
-        print("   ".join(line))
+# Create a label to display the result
+result_label = tk.Label(root, text="Result: ", font=("Helvetica", 20))
+result_label.pack(pady=20)
 
-def main():
-    print("Welcome to the Dice Roll Simulator!")
-    while True:
-        num_dice = input("How many dice would you like to roll? (1-5) or 'q' to quit: ")
-        if num_dice.lower() == 'q':
-            break
-        if not num_dice.isdigit() or not 1 <= int(num_dice) <= 5:
-            print("Please enter a number between 1 and 5.")
-            continue
+# Create a button to roll the dice
+roll_button = tk.Button(root, text="Roll Dice", font=("Helvetica", 16), command=roll_dice)
+roll_button.pack(pady=20)
 
-        num_dice = int(num_dice)
-        print("\nRolling the dice...")
-        time.sleep(1)  # Adding a short delay for effect
-        dice = roll_dice(num_dice)
-        display_dice(dice)
-        print("\n")
-
-if _name_ == "_main_":
-    main()
+# Run the application
+root.mainloop()
